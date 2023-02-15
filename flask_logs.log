@@ -1,0 +1,30 @@
+2023-02-15 14:57:43,286 Scrap Successful
+2023-02-15 14:57:43,290 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.18.0.39:5000
+2023-02-15 14:57:43,290 [33mPress CTRL+C to quit[0m
+2023-02-15 14:57:50,664 List of Course names Generated
+2023-02-15 14:57:50,673 172.18.0.2 - - [15/Feb/2023 14:57:50] "GET / HTTP/1.1" 200 -
+2023-02-15 14:57:50,790 172.18.0.2 - - [15/Feb/2023 14:57:50] "[36mGET /static/css/main.css HTTP/1.1[0m" 304 -
+2023-02-15 14:57:50,834 172.18.0.2 - - [15/Feb/2023 14:57:50] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2023-02-15 14:57:56,552 User input is taken and results Generated
+2023-02-15 14:57:56,556 172.18.0.2 - - [15/Feb/2023 14:57:56] "POST /course HTTP/1.1" 200 -
+2023-02-15 14:57:56,690 172.18.0.2 - - [15/Feb/2023 14:57:56] "[33mGET /style.css HTTP/1.1[0m" 404 -
+2023-02-15 14:57:56,691 172.18.0.2 - - [15/Feb/2023 14:57:56] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2023-02-15 15:04:51,120 User input is taken and results Generated
+2023-02-15 15:04:51,121 172.18.0.2 - - [15/Feb/2023 15:04:51] "POST /course HTTP/1.1" 200 -
+2023-02-15 15:04:51,183 172.18.0.2 - - [15/Feb/2023 15:04:51] "[33mGET /style.css HTTP/1.1[0m" 404 -
+2023-02-15 15:04:51,223 172.18.0.2 - - [15/Feb/2023 15:04:51] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2023-02-15 15:06:00,970 User input is taken and results Generated
+2023-02-15 15:06:00,971 172.18.0.2 - - [15/Feb/2023 15:06:00] "POST /course HTTP/1.1" 200 -
+2023-02-15 15:06:01,035 172.18.0.2 - - [15/Feb/2023 15:06:01] "[33mGET /style.css HTTP/1.1[0m" 404 -
+2023-02-15 15:06:01,075 172.18.0.2 - - [15/Feb/2023 15:06:01] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2023-02-15 15:06:58,436 User input is taken and results Generated
+2023-02-15 15:06:58,437 172.18.0.2 - - [15/Feb/2023 15:06:58] "POST /course HTTP/1.1" 200 -
+2023-02-15 15:06:58,490 172.18.0.2 - - [15/Feb/2023 15:06:58] "[33mGET /style.css HTTP/1.1[0m" 404 -
+2023-02-15 15:06:58,492 172.18.0.2 - - [15/Feb/2023 15:06:58] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2023-02-15 15:07:05,120 User input is taken and results Generated
+2023-02-15 15:07:05,121 172.18.0.2 - - [15/Feb/2023 15:07:05] "POST /course HTTP/1.1" 200 -
+2023-02-15 15:07:05,193 172.18.0.2 - - [15/Feb/2023 15:07:05] "[33mGET /style.css HTTP/1.1[0m" 404 -
+2023-02-15 15:07:05,195 172.18.0.2 - - [15/Feb/2023 15:07:05] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
