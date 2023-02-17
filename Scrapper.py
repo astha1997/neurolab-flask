@@ -1,10 +1,12 @@
 import json
 import logging
+import mysql.connector
 from urllib.request import urlopen as uReq
 
 from bs4 import BeautifulSoup as bs
 
 from mongodb import mongodbconnection
+from sql import sqldbconnection
 
 ### Setting up Logging file ###
 logging.basicConfig(filename="flask_logs.log",
@@ -46,7 +48,8 @@ def get_course(coursename):
     Returns:
       A dictionary of course details
     """
-    ineuron_url = 'https://ineuron.ai/courses'
+    ineuron_url = 'https://ineuron.ai/course/'
+    
     uClient = uReq(ineuron_url + str(coursename).replace(" ", "-"))
     course_page = uClient.read()
     uClient.close()
@@ -131,20 +134,56 @@ def scrap_all():
     scrapes the data and inserts it into the database
     """
     dbcon = mongodbconnection(username='mongodb', password='mongodb')
-    db_collection = dbcon.getCollection(
-        "iNeuron_scrapper", "course_collection")
+    db_collection = dbcon.getCollection("iNeuron_scrapper", "course_collection")
     try:
         if dbcon.isCollectionPresent("iNeuron_scrapper", "course_collection"):
             pass
         else:
             final_list = []
             list_courses = all_course()
+            
             for i in list_courses:
                 final_list.append(get_course(i))
             db_collection.insert_many(final_list)
+            
     except Exception as e:
         logging.error("error in DB insertion", e)
 
-a=all_course()
-print (a)
+def sql_insert():
+    """
+    It checks if the data is present in the table if it is, it does nothing, if it isn't, it
+    scrapes the data and inserts it into the table
+    """
+    
+    sqldbcon = sqldbconnection(host="localhost",user="abc",password="password")
+     
+
+    try:
+        data_list=[]
+        final_list = []
+        list_courses = all_course()
+        mydb = mysql.connector.connect(host="localhost",user="abc",password="password")
+        print(mydb)
+        mycursor = mydb.cursor()
+        mycursor.execute('use iNeuron_scrapper')
+        mycursor.execute('truncate table course_collection')
+                
+        for i in list_courses:
+            final_list.append(get_course(i).values())
+            CourseName=get_course(i)['Course_title']
+            Description=get_course(i)['Description']
+            Language=get_course(i)['Language']
+            Pricing=get_course(i)['Pricing'] 
+            Curriculum_data=' '.join(get_course(i)['Curriculum_data'])
+            Learn=' '.join(get_course(i)['Learn'])
+            Requirements=' '.join(get_course(i)['Requirements'])
+            data_tuple=(CourseName,Description,Language,Pricing,Curriculum_data,Learn,Requirements)
+            sql="INSERT INTO course_collection  (Course_title  ,Description  ,Language ,Pricing ,Curriculum_data ,Learn ,Requirements   ) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+            #mycursor.execute("Insert Into course_collection (Course_title  ,Description  ,Language ,Pricing ,Curriculum_data ,Learn ,Requirements   ) VALUES (%s,%s,%s,%s,%s,%s,%s) " .format( CourseName,Description,Language,Pricing,Curriculum_data,Learn,Requirements))
+            mycursor.execute(sql, data_tuple)
+            mydb.commit()
+            print("Records inserted successfully")
+                    
+    except Exception as e:
+        logging.error("error in SQL DB insertion", e)
 

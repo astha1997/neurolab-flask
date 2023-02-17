@@ -2,9 +2,12 @@ import logging
 
 from flask import Flask, render_template, request
 from flask_cors import CORS, cross_origin
-
+from sql import sqldbconnection
 from mongodb import mongodbconnection
-from Scrapper import all_course, scrap_all
+from Scrapper import all_course, scrap_all , sql_insert
+
+
+
 
 
 
@@ -19,13 +22,30 @@ dbcon = mongodbconnection(username='mongodb', password='mongodb')
 ineuron_coll = dbcon.getCollection(
     dbName='iNeuron_scrapper', collectionName="course_collection")
 
+# connection to sql
+dbname = "iNeuron_scrapper"
+Tablename = "course_collection"
+sqldbcon = sqldbconnection(host="localhost",user="abc",password="password")
+
+sqlDB = sqldbcon.Database(dbName='iNeuron_scrapper')
+
+sqlTable =sqldbcon.Table(dbName='iNeuron_scrapper', TableName="course_collection")
+
+
+
+
 # Function to scrap all course data and store it in mongodb.
 try:
     scraps = scrap_all()
     logging.info('Scrap Successful')
 except Exception as e:
     logging.error('Error in Scraping check Scrapper.py', e)
-
+# Function to scrap all course data and store it in sqldb.
+try:
+    sql_insert = sql_insert()
+    logging.info('Scrap Successful')
+except Exception as e:
+    logging.error('Error in Scraping and storing data in sql check Scrapper.py', e)
 # Connect to Flask
 application = Flask(__name__)
 app=application
@@ -48,6 +68,7 @@ def result():
         input_course = request.form['content'].replace("  ", " ")
         course_data = ineuron_coll.find_one({"Course_title": input_course}, {"_id": 0})
         logging.info("User input is taken and results Generated")
+        
         return render_template("results.html", course_data=course_data)
     else:
         return render_template('index.html')
