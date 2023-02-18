@@ -167,8 +167,9 @@ def sql_insert():
         mycursor = mydb.cursor()
         mycursor.execute('use iNeuron_scrapper')
         mycursor.execute('truncate table course_collection')
-                
+        count=0        
         for i in list_courses:
+            count+=1
             final_list.append(get_course(i).values())
             CourseName=get_course(i)['Course_title']
             Description=get_course(i)['Description']
@@ -182,7 +183,8 @@ def sql_insert():
             #mycursor.execute("Insert Into course_collection (Course_title  ,Description  ,Language ,Pricing ,Curriculum_data ,Learn ,Requirements   ) VALUES (%s,%s,%s,%s,%s,%s,%s) " .format( CourseName,Description,Language,Pricing,Curriculum_data,Learn,Requirements))
             mycursor.execute(sql, data_tuple)
             mydb.commit()
-            print("Records inserted successfully")
+            if(count>=100):
+                break
                     
     except Exception as e:
         logging.error("error in SQL DB insertion", e)
