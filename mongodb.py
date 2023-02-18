@@ -7,7 +7,7 @@ class mongodbconnection:
         try:
             self.username = username
             self.password = password
-            self.url = f"mongodb+srv://{self.username}:{self.password}@cluster0.bfgcgfc.mongodb.net/?retryWrites=true&w=majority"
+            self.url = f"mongodb+srv://{self.username}:{self.password}@cluster0.bfgcgfc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
         except Exception as e:
             raise e
 
@@ -37,7 +37,6 @@ class mongodbconnection:
         try:
             client = self.getMongoClient()
             database = client[dbName]
-            #print('databasecreated')
             return database
         except Exception as e:
             raise e
@@ -56,7 +55,6 @@ class mongodbconnection:
         try:
             database = self.getDatabase(dbName)
             collection = database[collectionName]
-            #print('collectioncreated')
             return collection
         except Exception as e:
             raise e
